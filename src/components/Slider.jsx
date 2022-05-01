@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import { useState } from 'react';
+import { sliderItems } from "../data";
 
 const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    background-color: white;
     position: relative;
     overflow: hidden;
 `;
@@ -25,8 +25,9 @@ const Arrow = styled.div`
     top: 0;
     bottom: 0;
     margin: auto;
-    left: ${props => props.direction == "left" && "10px"};
-    right: ${props => props.direction == "right" && "10px"};
+    left: ${props => props.direction === "left" && "10px"};
+    right: ${props => props.direction === "right" && "10px"};
+    margin: auto;
     cursor: pointer;
     opacity: 0.5;
     z-index: 2;
@@ -35,7 +36,8 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
     height: 100%;
     display: flex;
-    transform: translate(0vh);
+    transition: all 1.5s ease;
+    transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
 
 const Slide = styled.div`
@@ -43,7 +45,7 @@ const Slide = styled.div`
     height: 100vh;
     display: flex;
     align-items: center;
-    background-color: #${props=>props.bg};
+    background-color: #${(props)=>props.bg};
 `;
 
 const ImgContainer = styled.div`
@@ -82,7 +84,11 @@ const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
 
     const handleClick = (direction) => {
-
+        if(direction === "left") {
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+        } else {
+            setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+        }
     };
 
   return (
@@ -90,37 +96,19 @@ const Slider = () => {
           <Arrow direction="left" onClick={()=>handleClick("left")}>
           <ArrowLeftOutlinedIcon/>
           </Arrow>
-          <Wrapper>
-              <Slide bg="f5fafd">
+          <Wrapper slideIndex={slideIndex}>
+              {sliderItems.map((item) => (
+                <Slide bg={item.bg}>
                 <ImgContainer>
-                <Image src="https://i.ibb.co/YXTDnSS/pic3.jpg"/>
+                    <Image src={item.img}/>
                 </ImgContainer>
                 <InfoContainer>
-                    <Title>Summer Sale</Title>
-                    <Desc>Dont compromise on style! Get flat 40% off</Desc>
+                    <Title>{item.title}</Title>
+                    <Desc>{item.desc}</Desc>
                     <Button>SHOW NOW</Button>
                 </InfoContainer>
             </Slide>
-            <Slide bg="fcf1ed">
-                <ImgContainer>
-                <Image src="https://i.ibb.co/YXTDnSS/pic3.jpg"/>
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>Winter Sale</Title>
-                    <Desc>Dont compromise on style! Get flat 40% off</Desc>
-                    <Button>SHOW NOW</Button>
-                </InfoContainer>
-            </Slide>
-            <Slide bg="fbf0f4">
-                <ImgContainer>
-                <Image src="https://i.ibb.co/YXTDnSS/pic3.jpg"/>
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>Rainy Sale</Title>
-                    <Desc>Dont compromise on style! Get flat 40% off</Desc>
-                    <Button>SHOW NOW</Button>
-                </InfoContainer>
-            </Slide>
+            ))}
           </Wrapper>
           <Arrow direction="right" onClick={()=>handleClick("right")}>
           <ArrowRightOutlinedIcon/>
