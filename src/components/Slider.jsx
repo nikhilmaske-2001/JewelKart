@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
+import { useState } from 'react';
 
 const Container = styled.div`
     width: 100%;
@@ -28,11 +29,13 @@ const Arrow = styled.div`
     right: ${props => props.direction == "right" && "10px"};
     cursor: pointer;
     opacity: 0.5;
+    z-index: 2;
 `;
 
 const Wrapper = styled.div`
     height: 100%;
     display: flex;
+    transform: translate(0vh);
 `;
 
 const Slide = styled.div`
@@ -40,6 +43,7 @@ const Slide = styled.div`
     height: 100vh;
     display: flex;
     align-items: center;
+    background-color: #${props=>props.bg};
 `;
 
 const ImgContainer = styled.div`
@@ -75,13 +79,19 @@ const Button = styled.button`
 `;
 
 const Slider = () => {
+    const [slideIndex, setSlideIndex] = useState(0);
+
+    const handleClick = (direction) => {
+
+    };
+
   return (
       <Container>
-          <Arrow direction="left">
+          <Arrow direction="left" onClick={()=>handleClick("left")}>
           <ArrowLeftOutlinedIcon/>
           </Arrow>
           <Wrapper>
-              <Slide>
+              <Slide bg="f5fafd">
                 <ImgContainer>
                 <Image src="https://i.ibb.co/YXTDnSS/pic3.jpg"/>
                 </ImgContainer>
@@ -91,7 +101,7 @@ const Slider = () => {
                     <Button>SHOW NOW</Button>
                 </InfoContainer>
             </Slide>
-            <Slide>
+            <Slide bg="fcf1ed">
                 <ImgContainer>
                 <Image src="https://i.ibb.co/YXTDnSS/pic3.jpg"/>
                 </ImgContainer>
@@ -101,7 +111,7 @@ const Slider = () => {
                     <Button>SHOW NOW</Button>
                 </InfoContainer>
             </Slide>
-            <Slide>
+            <Slide bg="fbf0f4">
                 <ImgContainer>
                 <Image src="https://i.ibb.co/YXTDnSS/pic3.jpg"/>
                 </ImgContainer>
@@ -112,7 +122,7 @@ const Slider = () => {
                 </InfoContainer>
             </Slide>
           </Wrapper>
-          <Arrow direction="right">
+          <Arrow direction="right" onClick={()=>handleClick("right")}>
           <ArrowRightOutlinedIcon/>
           </Arrow>
       </Container>
