@@ -5,6 +5,6 @@ import Product from "./pages/Product";
 import Register from "./pages/Register";
 
 const App = () => {
-  return(<Cart/>);
+  return(<Home/>);
 }
 export default App;
