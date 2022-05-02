@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Pinterest, Twitter } from '@mui/icons-material';
+import { Facebook, Instagram, MailOutline, Phone, Pinterest, Room, Twitter } from '@mui/icons-material';
 import React from 'react';
 import styled from "styled-components";
 
@@ -62,7 +62,16 @@ const ListItem = styled.div`
 const Right = styled.div`
     flex: 1;
     padding: 20px;
+`;
 
+const ContactItem = styled.div`
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+`;
+
+const Payment = styled.img`
+    width: 50%;
 `;
 
 const Footer = () => {
@@ -104,9 +113,16 @@ const Footer = () => {
           </Center>
             <Right>
                 <Title>Contact</Title>
-                {/* <ContactItem>Mahal, Nagpur</ContactItem>
-                <ContactItem>+1 1234 2344</ContactItem>
-                <ContactItem>contact@nik.dev</ContactItem> */}
+                <ContactItem>
+                    <Room style={{marginRight: "10px"}}/>Mahal, Nagpur
+                </ContactItem>
+                <ContactItem>
+                    <Phone style={{marginRight: "10px"}}/>+1 1234 2344
+                </ContactItem>
+                <ContactItem>
+                    <MailOutline style={{marginRight: "10px"}}/>contact@nik.dev
+                </ContactItem>
+                <Payment src="https://i.ibb.co/qgtv2BW/payment.jpg"/>
             </Right>
       </Container>
   )
