@@ -6,6 +6,8 @@ import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from '../responsive';
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 
 const Container = styled.div`
@@ -52,6 +54,18 @@ const Option = styled.option`
 `;
 
 const ProductList = () => {
+    const location = useLocation();
+    const cat = location.pathname.split('/')[2];
+    const [filter, setFilter] = useState({});
+
+    const handleFilter = (e) => {
+        const value = e.target.value;
+        setFilter({
+            ...filter,
+            [e.target.name]: value,
+        })
+    }
+    console.log(filter);
   return (
     <Container>
         <Navbar/>
@@ -60,7 +74,7 @@ const ProductList = () => {
         <FilterContainer>
             <Filter>
                 <FilterText>Filter Products : </FilterText>
-                <Select>
+                <Select name="color" onChange={handleFilter}>
                     <Option disabled selected>
                         Color
                     </Option>
@@ -71,7 +85,7 @@ const ProductList = () => {
                     <Option>Yellow</Option>
                     <Option>Green</Option>
                 </Select>
-                <Select>
+                <Select name="size" onChange={handleFilter}>
                     <Option disabled selected>
                         Size
                     </Option>
