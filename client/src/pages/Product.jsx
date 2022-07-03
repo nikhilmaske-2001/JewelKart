@@ -164,6 +164,9 @@ const Product = () => {
                 <FilterColor color={c} key={c} />
               ))}
               {product.color} */}
+              <FilterColor color={"red"} />
+              <FilterColor color={"gray"} />
+              <FilterColor color={"blue"} />
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
@@ -173,6 +176,11 @@ const Product = () => {
                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
               </FilterSize> */}
+              <FilterSize>
+                <FilterSizeOption>S</FilterSizeOption>
+                <FilterSizeOption>M</FilterSizeOption>
+                <FilterSizeOption>L</FilterSizeOption>
+              </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
