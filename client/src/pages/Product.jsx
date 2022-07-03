@@ -133,6 +133,9 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     const getProduct = async () => {
@@ -143,6 +146,19 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = (e) => {
+    //update cart
+    console.log(e);
+  };
 
   return (
     <Container>
@@ -160,8 +176,8 @@ const Product = () => {
             <Filter>
               <FilterTitle>Color</FilterTitle>
               {/* Todo: This code does not work
-              {product.color.map((c) => (
-                <FilterColor color={c} key={c} />
+              {product.color?.map((c) => (
+                <FilterColor color={c} key={c} onClick={()=>setColor(c)} />
               ))}
               {product.color} */}
               <FilterColor color={"red"} />
@@ -171,8 +187,8 @@ const Product = () => {
             <Filter>
               <FilterTitle>Size</FilterTitle>
               {/* Todo: This code does not work
-              <FilterSize>
-                {product.size.map((s) => (
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size?.map((s) => (
                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
               </FilterSize> */}
@@ -185,11 +201,11 @@ const Product = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={() => handleQuantity("dec")} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
