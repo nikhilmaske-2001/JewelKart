@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { Badge } from '@mui/material';
-import {mobile} from "../responsive";
-
+import React from "react";
+import styled from "styled-components";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { Badge } from "@mui/material";
+import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
-    height: 60px;
-    ${mobile({
-      height: "50px",
-    })}
+  height: 60px;
+  ${mobile({
+    height: "50px",
+  })}
 `;
 
 const Wrapper = styled.div`
@@ -19,12 +19,12 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   ${mobile({
-      padding: "10px 0px",
-    })}
+    padding: "10px 0px",
+  })}
 `;
 
 const Left = styled.div`
-  flex:1;
+  flex: 1;
   display: flex;
   align-items: center;
 `;
@@ -53,7 +53,7 @@ const Input = styled.input`
 `;
 
 const Center = styled.div`
-  flex:1;
+  flex: 1;
   text-align: center;
 `;
 
@@ -65,7 +65,7 @@ const Logo = styled.div`
 `;
 
 const Right = styled.div`
-  flex:1;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -86,29 +86,33 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <Wrapper>
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input placeholder='Search'/>
-            <SearchIcon style={{color: "grey", fontSize:16}}/>
+            <Input placeholder="Search" />
+            <SearchIcon style={{ color: "grey", fontSize: 16 }} />
           </SearchContainer>
         </Left>
-        <Center><Logo>LAMA.</Logo></Center>
+        <Center>
+          <Logo>LAMA.</Logo>
+        </Center>
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
-            <ShoppingCartOutlinedIcon/>
+            <Badge badgeContent={quantity} color="primary">
+              <ShoppingCartOutlinedIcon />
             </Badge>
           </MenuItem>
         </Right>
       </Wrapper>
     </Container>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
