@@ -185,12 +185,16 @@ const Cart = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
+        history.push("/success");
+
         const res = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total * 100,
+          amount: 500,
         });
-        history.push("/success", { data: res.data });
-      } catch {}
+        // history.push("/success", { data: res.data });
+      } catch (err) {
+        console.log(err);
+      }
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
